@@ -1,58 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Forno Nero 🍕
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Aplicación web de gestión para una pizzería desarrollada con Laravel.**
 
-## About Laravel
+Forno Nero es un proyecto personal de portfolio que permite mostrar una carta de pizzas y administrar los productos mediante un panel privado.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Funcionalidades
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Carta pública
+- Página principal con diseño personalizado.
+- Catálogo de pizzas con imágenes, descripciones y precios.
+- Visualización únicamente de pizzas disponibles.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Panel de administración
+- Inicio y cierre de sesión.
+- Listado de productos.
+- Creación, edición y eliminación de pizzas.
+- Activación y desactivación de la disponibilidad.
+- Validación de los formularios.
+- Protección de las rutas administrativas mediante autenticación.
 
-## Learning Laravel
+### Seguridad y pruebas
+- Contraseñas almacenadas mediante hash.
+- Protección CSRF en formularios.
+- Limitación de intentos de inicio de sesión.
+- Pruebas automatizadas de acceso, validación y operaciones CRUD.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tecnologías utilizadas
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.3
+- Laravel 13
+- MySQL
+- Blade
+- HTML5 y CSS3
+- Git
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Requisitos
 
-## Agentic Development
+- PHP compatible con Laravel.
+- Composer.
+- MySQL.
+- Node.js y npm si necesitas compilar recursos frontend.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Instalación local
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   ```
+
+2. Entra en la carpeta:
+
+   ```bash
+   cd pizzeriaos
+   ```
+
+3. Instala las dependencias:
+
+   ```bash
+   composer install
+   ```
+
+4. Copia el archivo de configuración:
+
+   ```bash
+   copy .env.example .env
+   ```
+
+   En macOS o Linux puedes usar `cp .env.example .env`.
+
+5. Genera la clave de la aplicación:
+
+   ```bash
+   php artisan key:generate
+   ```
+
+6. Crea una base de datos MySQL llamada `pizzeriaos` y configura la conexión en `.env`.
+
+7. Ejecuta las migraciones:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+8. Inicia el servidor:
+
+   ```bash
+   php artisan serve
+   ```
+
+9. Abre `http://127.0.0.1:8000`.
+
+**Nota:** configura un usuario administrador de forma segura. No publiques credenciales ni el archivo `.env`.
+
+## Pruebas automatizadas
+
+Para ejecutar la suite de pruebas:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Las pruebas verifican el acceso al panel, la visibilidad de las pizzas, las operaciones CRUD y las restricciones para visitantes sin autenticar.
 
-## Contributing
+## Mejoras futuras
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Añadir capturas de pantalla.
+- Ampliar las pruebas automatizadas.
+- Mejorar el diseño adaptable a móviles.
+- Incorporar gestión de pedidos.
+- Preparar el despliegue en producción.
 
-## Code of Conduct
+## Autor
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Proyecto personal desarrollado como parte de mi aprendizaje y portfolio como desarrollador de aplicaciones web.
