@@ -4,89 +4,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="robots" content="noindex, nofollow">
     <title>Nueva pizza | Forno Nero</title>
+
     <link rel="stylesheet" href="{{ asset('css/forno.css') }}">
 
     <style>
         .form-container {
-            width: min(650px, 92%);
-            margin: 60px auto;
+            width: min(680px, 92%);
+            margin: 48px auto 80px;
+        }
+
+        .form-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 28px;
+            color: var(--muted);
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .form-back:hover {
+            color: var(--accent);
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+        }
+
+        .form-eyebrow {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .form-heading h1 {
+            margin: 0 0 12px;
+            font-size: clamp(30px, 5vw, 42px);
+            line-height: 1.15;
+        }
+
+        .form-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
         }
 
         .pizza-form {
             display: grid;
-            gap: 22px;
-            margin-top: 30px;
-            padding: 30px;
+            gap: 24px;
+            padding: clamp(20px, 5vw, 34px);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             background: var(--surface);
         }
 
         .form-group {
             display: grid;
-            gap: 8px;
+            gap: 9px;
         }
 
         .form-group label {
+            color: var(--text);
             font-size: 13px;
             font-weight: 700;
         }
 
+        .field-hint {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
         .form-group input,
         .form-group textarea {
+            display: block;
             width: 100%;
-            padding: 13px;
+            box-sizing: border-box;
+            padding: 13px 14px;
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 6px;
             background: #11110f;
             color: var(--text);
             font: inherit;
+            font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input {
+            min-height: 47px;
         }
 
         .form-group textarea {
-            min-height: 110px;
+            min-height: 125px;
             resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #77736c;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
-            outline: 1px solid var(--accent);
+            outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(237, 113, 69, 0.12);
+        }
+
+        .form-group input[aria-invalid="true"],
+        .form-group textarea[aria-invalid="true"] {
+            border-color: #ff8d8d;
         }
 
         .form-error {
             color: #ffaaaa;
             font-size: 13px;
+            line-height: 1.5;
         }
 
-        .form-back {
+        .errors {
+            margin-bottom: 24px;
+            padding: 16px 18px;
+            border: 1px solid rgba(230, 100, 100, 0.3);
+            border-radius: 8px;
+            background: rgba(192, 65, 65, 0.12);
+            color: #ffb7b7;
+        }
+
+        .errors strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .errors ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .errors li + li {
+            margin-top: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding-top: 6px;
+        }
+
+        .form-submit {
+            min-height: 46px;
+            padding: 12px 20px;
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            background: var(--accent);
+            color: #11110f;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .form-submit:hover {
+            background: var(--accent-hover, #f1835c);
+        }
+
+        .form-submit:active {
+            transform: translateY(1px);
+        }
+
+        .form-cancel {
+            display: inline-flex;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
             color: var(--muted);
+            font-size: 14px;
             text-decoration: none;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .form-cancel:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .form-submit:focus-visible,
+        .form-cancel:focus-visible,
+        .form-back:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                width: 94%;
+                margin: 30px auto 50px;
+            }
+
+            .form-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .form-submit,
+            .form-cancel {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .form-back,
+            .form-group input,
+            .form-group textarea,
+            .form-submit,
+            .form-cancel {
+                transition: none;
+            }
         }
     </style>
 </head>
+
 <body>
     <header>
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Navegación de administración">
             <a class="brand" href="{{ url('/') }}">FORNO NERO</a>
-            <a href="{{ route('admin.pizzas.index') }}">Administración</a>
+
+            <a href="{{ route('admin.pizzas.index') }}">
+                Administración
+            </a>
         </nav>
     </header>
 
     <main class="form-container">
-        <a class="form-back" href="{{ route('admin.pizzas.index') }}">
-            ← Volver a las pizzas
+        <a
+            class="form-back"
+            href="{{ route('admin.pizzas.index') }}"
+        >
+            <span aria-hidden="true">←</span>
+            Volver a las pizzas
         </a>
 
-        <h1 style="margin-top: 28px;">Nueva pizza</h1>
-        <p style="color: var(--muted);">
-            Añade una nueva receta a la carta de Forno Nero.
-        </p>
+        <div class="form-heading">
+            <span class="form-eyebrow">Gestión del catálogo</span>
+            <h1>Nueva pizza</h1>
+            <p>
+                Añade una nueva receta a la carta de Forno Nero.
+                Completa los datos para crear el producto.
+            </p>
+        </div>
 
         @if ($errors->any())
-            <div class="form-error">
+            <div class="errors" role="alert" aria-labelledby="error-title">
+                <strong id="error-title">
+                    No se ha podido guardar la pizza.
+                </strong>
+
                 <p>Revisa los siguientes campos:</p>
+
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -103,30 +295,52 @@
             @csrf
 
             <div class="form-group">
-                <label for="name">Nombre de la pizza</label>
+                <label for="name">Nombre de la pizza *</label>
+
                 <input
                     id="name"
                     name="name"
                     type="text"
                     value="{{ old('name') }}"
-                    required
                     maxlength="255"
                     placeholder="Ej. Diavola"
+                    autocomplete="off"
+                    required
+                    @if ($errors->has('name')) aria-invalid="true" aria-describedby="name-error" @endif
                 >
+
+                @if ($errors->has('name'))
+                    <span id="name-error" class="form-error">
+                        {{ $errors->first('name') }}
+                    </span>
+                @endif
             </div>
 
             <div class="form-group">
-                <label for="description">Descripción</label>
+                <label for="description">Descripción *</label>
+
                 <textarea
                     id="description"
                     name="description"
+                    placeholder="Describe los ingredientes y el sabor de la pizza..."
                     required
-                    placeholder="Describe los ingredientes..."
+                    @if ($errors->has('description')) aria-invalid="true" aria-describedby="description-error" @endif
                 >{{ old('description') }}</textarea>
+
+                <span class="field-hint">
+                    Explica los ingredientes principales de forma breve y atractiva.
+                </span>
+
+                @if ($errors->has('description'))
+                    <span id="description-error" class="form-error">
+                        {{ $errors->first('description') }}
+                    </span>
+                @endif
             </div>
 
             <div class="form-group">
-                <label for="price">Precio (€)</label>
+                <label for="price">Precio (€) *</label>
+
                 <input
                     id="price"
                     name="price"
@@ -135,13 +349,26 @@
                     max="999999.99"
                     step="0.01"
                     value="{{ old('price') }}"
-                    required
                     placeholder="12.50"
+                    inputmode="decimal"
+                    required
+                    @if ($errors->has('price')) aria-invalid="true" aria-describedby="price-error" @endif
                 >
+
+                <span class="field-hint">
+                    Introduce el precio en euros. Ejemplo: 12.50.
+                </span>
+
+                @if ($errors->has('price'))
+                    <span id="price-error" class="form-error">
+                        {{ $errors->first('price') }}
+                    </span>
+                @endif
             </div>
 
             <div class="form-group">
-                <label for="image_url">URL de la imagen (opcional)</label>
+                <label for="image_url">URL de la imagen</label>
+
                 <input
                     id="image_url"
                     name="image_url"
@@ -149,12 +376,32 @@
                     value="{{ old('image_url') }}"
                     maxlength="255"
                     placeholder="https://ejemplo.com/pizza.jpg"
+                    @if ($errors->has('image_url')) aria-invalid="true" aria-describedby="image-url-error" @endif
                 >
+
+                <span class="field-hint">
+                    Campo opcional. Utiliza una dirección web válida que apunte a una imagen.
+                </span>
+
+                @if ($errors->has('image_url'))
+                    <span id="image-url-error" class="form-error">
+                        {{ $errors->first('image_url') }}
+                    </span>
+                @endif
             </div>
 
-            <button class="btn-menu" type="submit">
-                Guardar pizza
-            </button>
+            <div class="form-actions">
+                <button class="form-submit" type="submit">
+                    Guardar pizza
+                </button>
+
+                <a
+                    class="form-cancel"
+                    href="{{ route('admin.pizzas.index') }}"
+                >
+                    Cancelar
+                </a>
+            </div>
         </form>
     </main>
 </body>

@@ -1,14 +1,19 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\Admin\PizzaController as AdminPizzaController;
 use App\Http\Controllers\AuthController;
+use App\Models\Pizza;
 
 // Página principal
 Route::get('/', function () {
-    return view('home');
+    $pizzas = Pizza::where('is_available', true)
+        ->orderBy('name')
+        ->take(3)
+        ->get();
+
+    return view('home', compact('pizzas'));
 });
 
 // Carta pública

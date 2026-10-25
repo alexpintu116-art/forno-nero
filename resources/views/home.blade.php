@@ -14,20 +14,17 @@
 <body>
     <header class="navbar">
         <a href="/" class="brand">FORNO<span>NERO.</span></a>
-
-        <nav>
+        <nav aria-label="Navegación principal">
             <a href="#filosofia">Nuestra filosofía</a>
             <a href="#especialidades">Especialidades</a>
             <a href="{{ route('pizzas.index') }}">Nuestra carta</a>
-
         </nav>
 
         <a href="#especialidades" class="nav-button">Descubrir la carta ↗</a>
     </header>
-
     <main>
         <section class="hero">
-            <div class="hero-content">  
+            <div class="hero-content">
                 <span class="eyebrow"><span class="dot"></span> PIZZA ARTESANAL · DESDE EL HORNO</span>
 
                 <h1>No hacemos<br>pizza. Hacemos<br><span>momentos.</span></h1>
@@ -36,12 +33,16 @@
                     Ingredientes honestos, masa de larga fermentación
                     y fuego. La diferencia está en cada detalle.
                 </p>
-
                 <div class="hero-actions">
-                    <a class="button button-primary" href="#especialidades">Explorar especialidades ↗</a>
-                    <a class="button button-secondary" href="#filosofia">Nuestra historia</a>
-                    <a href="{{ route('pizzas.index') }}" class="btn-menu">Descubrir nuestra carta</a>
+                    <a class="button button-primary" href="{{ route('pizzas.index') }}">
+                        Descubrir nuestra carta ↗
+                    </a>
+
+                    <a class="button button-secondary" href="#filosofia">
+                        Nuestra filosofía
+                    </a>
                 </div>
+
 
                 <div class="hero-note">
                     <span class="note-line"></span>
@@ -84,11 +85,46 @@
                 </div>
                 <p>Una carta corta, ingredientes de calidad y ninguna necesidad de complicarlo.</p>
             </div>
+            <div class="pizza-grid">
+                @forelse ($pizzas as $pizza)
+                    <article class="pizza-card">
+                        @if ($pizza->image_url)
+                        <img
+                            src="{{ $pizza->image_url }}"
+                            alt="Pizza {{ $pizza->name }}"
+                            class="pizza-image"
+                            loading="lazy"
+                            decoding="async"
+                        >
+            @else
+                <div class="pizza-image-placeholder">
+                    <span>FORNO NERO</span>
+                </div>
+            @endif
 
-            <div class="coming-soon">
-                <span>LA CARTA ESTÁ EN EL HORNO</span>
-                <p>Muy pronto podrás descubrir nuestras especialidades.</p>
+            <div class="pizza-card-content">
+                <h3>{{ $pizza->name }}</h3>
+
+                <p>{{ $pizza->description }}</p>
+
+                <p class="pizza-price">
+                    {{ number_format((float) $pizza->price, 2, ',', '.') }} €
+                </p>
+
+                <a href="{{ route('pizzas.index') }}" class="btn-menu">
+                    DESCUBRIR PIZZA ↗
+                </a>
             </div>
+
+        </article>
+    @empty
+        <div class="coming-soon">
+            <span>LA CARTA ESTÁ EN EL HORNO</span>
+            <p>Muy pronto podrás descubrir nuestras especialidades.</p>
+        </div>
+    @endforelse
+</div>
+
         </section>
     </main>
 
